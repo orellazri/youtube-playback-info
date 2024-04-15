@@ -12,7 +12,7 @@ $(document).ready(() => {
 
   function updateOverlay() {
     playbackRate = $("video").get(0).playbackRate;
-    volume = Math.round($("video").get(0).volume * 100);
+    volume = $(".ytp-volume-panel").get(0).getAttribute("aria-valuenow");
 
     overlay.textContent = `${playbackRate}x ${volume}%`;
     $("#movie_player").find(overlay).remove();
@@ -20,10 +20,6 @@ $(document).ready(() => {
   }
 
   $("video").on("loadeddata", function () {
-    updateOverlay();
-  });
-
-  $("video").on("play", function () {
     updateOverlay();
   });
 
