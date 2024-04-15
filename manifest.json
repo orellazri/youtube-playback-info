@@ -1,0 +1,17 @@
+{
+    "manifest_version": 2,
+    "name": "YouTube Playback Info",
+    "version": "1.0",
+    "description": "Adds info overlay to YouTube videos",
+    "content_scripts": [
+        {
+            "matches": [
+                "*://*.youtube.com/*"
+            ],
+            "js": [
+                "jquery.js",
+                "overlay.js"
+            ]
+        }
+    ]
+}
