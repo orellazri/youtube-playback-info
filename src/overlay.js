@@ -19,7 +19,9 @@ $(document).ready(() => {
     $("#movie_player").append(overlay);
   }
 
-  updateOverlay();
+  $("video").on("loadeddata", function () {
+    updateOverlay();
+  });
 
   $("video").on("play", function () {
     updateOverlay();
