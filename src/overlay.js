@@ -12,13 +12,7 @@ $(document).ready(() => {
 
   function updateOverlay() {
     playbackRate = $("video").get(0).playbackRate;
-
-    if (navigator.userAgent.includes("Firefox")) {
-      // In Firefox the volume is a value between 0 and 0.5 for some reason?
-      volume = (Math.round($("video").get(0).volume * 100) / 50) * 100;
-    } else {
-      volume = Math.round($("video").get(0).volume * 100);
-    }
+    volume = Math.round($("video").get(0).volume * 100);
 
     overlay.textContent = `${playbackRate}x ${volume}%`;
     $("#movie_player").find(overlay).remove();
