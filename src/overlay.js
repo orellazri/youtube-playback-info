@@ -1,33 +1,34 @@
-$(document).ready(() => {
-  let overlay = document.createElement("div");
-  overlay.style.position = "absolute";
-  overlay.style.top = "5px";
-  overlay.style.right = "5px";
-  overlay.style.fontSize = "16px";
-  overlay.style.fontWeight = "bold";
-  overlay.style.color = "white";
-  overlay.style.textShadow = "1px 1px 1px black";
-  overlay.style.opacity = "0.5";
-  overlay.style.zIndex = 9999;
+let overlay = document.createElement("div");
+overlay.style.position = "absolute";
+overlay.style.top = "5px";
+overlay.style.right = "5px";
+overlay.style.fontSize = "16px";
+overlay.style.fontWeight = "bold";
+overlay.style.color = "white";
+overlay.style.textShadow = "1px 1px 1px black";
+overlay.style.opacity = "0.5";
+overlay.style.zIndex = 9999;
 
-  function updateOverlay() {
-    playbackRate = $("video").get(0).playbackRate;
-    volume = $(".ytp-volume-panel").get(0).getAttribute("aria-valuenow");
+const video = document.querySelector("video");
 
-    overlay.textContent = `${playbackRate}x ${volume}%`;
-    $("#movie_player").find(overlay).remove();
-    $("#movie_player").append(overlay);
+function updateOverlay() {
+  const playbackRate = video.playbackRate;
+  const volume = document.querySelector(".ytp-volume-panel").getAttribute("aria-valuenow");
+  overlay.textContent = `${playbackRate}x ${volume}%`;
+  const moviePlayer = document.querySelector("#movie_player");
+  if (!moviePlayer.contains(overlay)) {
+    moviePlayer.appendChild(overlay);
   }
+}
 
-  $("video").on("loadeddata", function () {
-    updateOverlay();
-  });
+video.addEventListener("loadeddata", () => {
+  updateOverlay();
+});
 
-  $("video").on("ratechange", function () {
-    updateOverlay();
-  });
+video.addEventListener("ratechange", () => {
+  updateOverlay();
+});
 
-  $("video").on("volumechange", function () {
-    updateOverlay();
-  });
+video.addEventListener("volumechange", () => {
+  updateOverlay();
 });

@@ -9,7 +9,6 @@
                 "*://*.youtube.com/*"
             ],
             "js": [
-                "src/jquery.js",
                 "src/overlay.js"
             ]
         }
