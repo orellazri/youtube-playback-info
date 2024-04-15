@@ -1,3 +1,3 @@
 #!/usr/bin/env bash
 
-zip -r -FS yt.zip src assets manifest.json
+zip -r -FS youtube-playback-info-ext.zip src assets manifest.json
