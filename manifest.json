@@ -9,9 +9,15 @@
                 "*://*.youtube.com/*"
             ],
             "js": [
-                "jquery.js",
-                "overlay.js"
+                "src/jquery.js",
+                "src/overlay.js"
             ]
         }
-    ]
+    ],
+    "icons": {
+        "16": "assets/logo.png",
+        "32": "assets/logo.png",
+        "48": "assets/logo.png",
+        "128": "assets/logo.png"
+    }
 }
