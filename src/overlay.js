@@ -1,7 +1,7 @@
 let overlay = document.createElement("div");
 overlay.style.position = "absolute";
-overlay.style.top = "15px";
-overlay.style.right = "15px";
+overlay.style.top = "3rem";
+overlay.style.right = "2rem";
 overlay.style.fontSize = "20px";
 overlay.style.fontWeight = "bold";
 overlay.style.color = "white";
@@ -18,7 +18,7 @@ function updateOverlay(video) {
   }
 }
 
-const observer = new MutationObserver(() => {
+const videoObserver = new MutationObserver(() => {
   const video = document.querySelector("video");
   video.addEventListener("loadeddata", () => {
     updateOverlay(video);
@@ -31,4 +31,18 @@ const observer = new MutationObserver(() => {
   });
 });
 
-observer.observe(document.querySelector("video"), { attributes: true });
+if (document.querySelector("video")) {
+  videoObserver.observe(document.querySelector("video"), { attributes: true });
+}
+
+let previousUrl = location;
+const urlObserver = new MutationObserver(() => {
+  if (location.href !== previousUrl) {
+    previousUrl = location.href;
+    const video = document.querySelector("video");
+    if (video) {
+      updateOverlay(video);
+    }
+  }
+});
+urlObserver.observe(document, { attributes: true, subtree: true });
