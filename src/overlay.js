@@ -1,17 +1,14 @@
 let overlay = document.createElement("div");
 overlay.style.position = "absolute";
-overlay.style.top = "5px";
-overlay.style.right = "5px";
-overlay.style.fontSize = "16px";
+overlay.style.top = "15px";
+overlay.style.right = "15px";
+overlay.style.fontSize = "20px";
 overlay.style.fontWeight = "bold";
 overlay.style.color = "white";
-overlay.style.textShadow = "1px 1px 1px black";
-overlay.style.opacity = "0.5";
+overlay.style.textShadow = "2px 2px 1px black";
 overlay.style.zIndex = 9999;
 
-const video = document.querySelector("video");
-
-function updateOverlay() {
+function updateOverlay(video) {
   const playbackRate = video.playbackRate;
   const volume = document.querySelector(".ytp-volume-panel").getAttribute("aria-valuenow");
   overlay.textContent = `${playbackRate}x ${volume}%`;
@@ -21,14 +18,17 @@ function updateOverlay() {
   }
 }
 
-video.addEventListener("loadeddata", () => {
-  updateOverlay();
+const observer = new MutationObserver(() => {
+  const video = document.querySelector("video");
+  video.addEventListener("loadeddata", () => {
+    updateOverlay(video);
+  });
+  video.addEventListener("ratechange", () => {
+    updateOverlay(video);
+  });
+  video.addEventListener("volumechange", () => {
+    updateOverlay(video);
+  });
 });
 
-video.addEventListener("ratechange", () => {
-  updateOverlay();
-});
-
-video.addEventListener("volumechange", () => {
-  updateOverlay();
-});
+observer.observe(document.querySelector("video"), { attributes: true });
