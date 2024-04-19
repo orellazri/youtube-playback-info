@@ -18,31 +18,19 @@ function updateOverlay(video) {
   }
 }
 
-const videoObserver = new MutationObserver(() => {
+const observer = new MutationObserver(() => {
   const video = document.querySelector("video");
-  video.addEventListener("loadeddata", () => {
+  if (video) {
     updateOverlay(video);
-  });
-  video.addEventListener("ratechange", () => {
-    updateOverlay(video);
-  });
-  video.addEventListener("volumechange", () => {
-    updateOverlay(video);
-  });
-});
-
-if (document.querySelector("video")) {
-  videoObserver.observe(document.querySelector("video"), { attributes: true });
-}
-
-let previousUrl = location;
-const urlObserver = new MutationObserver(() => {
-  if (location.href !== previousUrl) {
-    previousUrl = location.href;
-    const video = document.querySelector("video");
-    if (video) {
+    video.addEventListener("loadeddata", () => {
       updateOverlay(video);
-    }
+    });
+    video.addEventListener("ratechange", () => {
+      updateOverlay(video);
+    });
+    video.addEventListener("volumechange", () => {
+      updateOverlay(video);
+    });
   }
 });
-urlObserver.observe(document, { attributes: true, subtree: true });
+observer.observe(document, { attributes: true, subtree: true });
